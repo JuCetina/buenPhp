@@ -11,38 +11,38 @@ class Request
 
 	public function __construct($reqUrl)
 	{
-		$this->requestUrl = $reqUrl;
+		$this->requestUrl = $reqUrl;  //Guarda el objeto RequestUrl en la propiedad
 		
-		$segments = $this->requestUrl->getSegments(); 
+		$segments = $this->requestUrl->getSegments(); //Guarda los segmentos obtenidos de getSegments
 		
-		$this->resolveController($segments);
+		$this->resolveController($segments); 
 		$this->resolveAction($segments);
 		$this->resolveParams($segments);
 	}
 
 	public function resolveController(&$segments) //& Significa que pasa variable por referencia y no por valor 
 	{
-		$this->controller = array_shift($segments);
+		$this->controller = array_shift($segments); //Toma la primera posicion del array y la quita del mismo, primer parte de la Url
 
-		if(empty($this->controller))
+		if(empty($this->controller)) 
 		{
-			$this->controller = $this->defaultController;
+			$this->controller = $this->defaultController; //Si es vacio, el controlador por default es home
 		}
 	}
 
 	public function resolveAction(&$segments) //& Significa que pasa variable por referencia y no por valor 
 	{
-		$this->action = array_shift($segments);
+		$this->action = array_shift($segments); //Toma la primera posicion del array y la quita del mismo, segunda parte de la Url
 
 		if(empty($this->action))
 		{
-			$this->action = $this->defaultAction;
+			$this->action = $this->defaultAction; //Si es vacio, la accion por default es index
 		}
 	}
 
 	public function resolveParams(&$segments) //& Significa que pasa variable por referencia y no por valor 
 	{
-		$this->params = $segments;
+		$this->params = $segments; //Pasa la ultima parte de la url (lo que quedo del array)
 	}
 
 	public function getController() //Obtener el segmento que contiene el nombre del controlador
@@ -50,7 +50,7 @@ class Request
 		return $this->controller;
 	}
 
-	public function getControllerClassName() //Obtener Nombre de la clase del controlador
+	public function getControllerClassName() //Obtener Nombre de la clase del controlador, primer palabra en mayuscula
 	{
 		return Inflector::camel($this->getController())."Controller";
 	}
@@ -65,17 +65,16 @@ class Request
 		return $this->action;
 	}
 
-	public function getActionMethodName()
-	{
+	public function getActionMethodName() //Obtiene la accion con la primer palabra en minuscula
 		return Inflector::lowerCamel($this->getAction())."Action";
 	}
 
-	public function getParams()
+	public function getParams() //Obtiene la ulrima parte de la url
 	{
 		return $this->params;
 	}
 
-	public function execute()
+	public function execute() 
 	{
 		$controllerClassName 	= $this->getControllerClassName();
 		$controllerFileName 	= $this->getControllerFileName();
@@ -84,14 +83,14 @@ class Request
 
 		if( ! file_exists($controllerFileName))
 		{
-			exit("El controlador no existe.");
+			exit("Error 404");
 		}
 
 		require $controllerFileName;
 	
 		$controller = new $controllerClassName();
 
-		$response = call_user_func_array([$controller, $actionMethodName], $params);
+		$response = call_user_func_array([$controller, $actionMethodName], $params); //Llama el controlador, el metodo y los parametros
 
 		$this->executeResponse($response);
 	}
