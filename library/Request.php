@@ -50,7 +50,7 @@ class Request
 		return $this->controller;
 	}
 
-	public function getControllerClassName() //Obtener Nombre de la clase del controlador, primer palabra en mayuscula
+	public function getControllerClassName() //Obtener Nombre de la clase del controlador, primer caracter en mayuscula
 	{
 		return Inflector::camel($this->getController())."Controller";
 	}
@@ -65,11 +65,11 @@ class Request
 		return $this->action;
 	}
 
-	public function getActionMethodName() //Obtiene la accion con la primer palabra en minuscula
+	public function getActionMethodName() //Obtiene la accion con la primer caracter en minuscula
 		return Inflector::lowerCamel($this->getAction())."Action";
 	}
 
-	public function getParams() //Obtiene la ulrima parte de la url
+	public function getParams() //Obtiene la ultima parte de la url
 	{
 		return $this->params;
 	}
