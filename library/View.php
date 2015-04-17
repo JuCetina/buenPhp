@@ -14,27 +14,27 @@ class View extends Response
 		$this->layout = $layout;
 	}
 
-	public function getTemplate(){
+	public function getTemplate(){ //Obtiene el nombre de la vista
 		return $this->template;
 	}
 
-	public function getTemplateFileName(){
+	public function getTemplateFileName(){ //Obtiene el nombre del archivo de la vista
 		return "views/".$this->getTemplate().".tpl.php";
 	}
 
-	public function getVars(){
+	public function getVars(){ //Obtiene las variables que pueda necesitar la vista
 		return $this->vars;
 	}
 
-	public function getLayout(){
+	public function getLayout(){ //Obtiene el nombre del layout
 		return $this->layout;
 	}
 
-	public function getLayoutFileName(){
+	public function getLayoutFileName(){ //Obtiene el nombre del archivo del layout
 		return "views/".$this->getLayout().".tpl.php";
 	}
 
-	public function execute()
+	public function execute() //Metodo obligatorio por ser una clase extendida de Response
 	{
 		$vars = $this->getVars();
 		$templateFileName = $this->getTemplateFileName();
