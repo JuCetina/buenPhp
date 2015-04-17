@@ -3,9 +3,9 @@
 /*
 * El frontend controller se encarga de configurar nuestra aplicacion
 */
-require "config.php";
+require "config.php"; //Este archivo hace que se muestren o no los errores
 
-//Library
+//Library - Clases
 require "library/RequestUrl.php";
 require "library/Request.php";
 require "library/Inflector.php";
