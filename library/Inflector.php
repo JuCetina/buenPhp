@@ -6,12 +6,12 @@ class Inflector
 	{
 		$segments = explode("-", $value);
 
-		array_walk($segments, function (&$item) //& por referencia, no por valor
+		array_walk($segments, function (&$item) //& por referencia, no por valor //array_walk le aplica una funcion a cada elemento de un array
 		{
 			$item = ucfirst($item); //Primer caracter de cada posicion del array en mayuscula
 		});
 
-		return implode("", $segments);
+		return implode("", $segments); //Une todos los segmentos
 	}
 
 	public static function lowerCamel($value)
