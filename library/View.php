@@ -42,15 +42,15 @@ class View extends Response
 
 		call_user_func(function () use ($templateFileName, $layoutFileName, $vars)
 		{
-			extract($vars);
+			extract($vars); //Convierte en variable cada elemento del array
 
-			ob_start();
+			ob_start(); //Activa el almacenamiento en el buffer de salida
 
-			require $templateFileName;
+			require $templateFileName; //Requiere el archivo que contiene el contenido de la vista
 
-			$tpl_content = ob_get_clean();
+			$tpl_content = ob_get_clean(); //Obtiene el contenido del búfer actual y elimina el buffer de salida actual
 
-			require $layoutFileName;
+			require $layoutFileName; //Requiere el archivo que contiene el layout
 		});
 	}
 }
